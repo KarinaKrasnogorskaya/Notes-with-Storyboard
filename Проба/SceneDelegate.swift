@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Проба
 //
-//  Created by Карина on 14.10.2022.
+//  Created by Карина on 10.01.2023.
 //
 
 import UIKit
