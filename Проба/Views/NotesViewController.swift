@@ -9,17 +9,30 @@ import UIKit
 
 class NotesViewController: UITableViewController {
 
-    var objects = [
-    Notes(name: "Как выучить язык Swift?", description: "Практика, практика и еще раз практика"),
-    Notes(name: "Как попасть на стажировку?", description: "Только методом проб и ошибок")
-    ]
+    var objects: [Notes] = []
+    var filtretedObjects = [Notes]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
+
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Заметки"
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-       
-        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder  = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+      
 
         
     }
@@ -28,25 +41,62 @@ class NotesViewController: UITableViewController {
         guard segue.identifier == "saveSegue" else { return }
         let sourseVC = segue.source as! NewNotesTableViewController
         let notes = sourseVC.notes
-        let newIndexPath = IndexPath(row: objects.count, section: 0)
-        objects.append(notes)
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow{
+            objects[selectedIndexPath.row] = notes
+            tableView.reloadRows(at: [selectedIndexPath], with: .fade)
+        } else {
+            let newIndexPath = IndexPath(row: objects.count, section: 0)
+            objects.append(notes)
+            tableView.insertRows(at: [newIndexPath], with: .fade)
+        }
+      
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard segue.identifier == "edit" else { return }
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let object: Notes
+            
+            if isFiltering {
+                object = filtretedObjects[indexPath.row]
+            } else {
+                object = objects[indexPath.row]
+            }
+            let note = object
+            let navigationVC = segue.destination as! UINavigationController
+            let newNotesVC = navigationVC.topViewController as! NewNotesTableViewController
+            newNotesVC.notes = note
+            newNotesVC.title = "Edit"
+        }
        
-        tableView.insertRows(at: [newIndexPath], with: .fade)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+       return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filtretedObjects.count
+        }
         return objects.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NotesTableViewCell
-        let object = objects[indexPath.row]
-        cell.set(object: object)
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NotesTableViewCell
+        
+        var object: Notes
+        
+        if isFiltering {
+            object = filtretedObjects[indexPath.row]
+        } else {
+            object = objects[indexPath.row]
+        }
+          
+            cell.set(object: object)
         return cell
     }
     
@@ -72,14 +122,21 @@ class NotesViewController: UITableViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+extension NotesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+
+    func filterContentForSearchText(_ searchText: String) {
+        filtretedObjects = objects.filter({ (object: Notes) -> Bool in
+            return object.name.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+}
+
+
+

@@ -15,12 +15,16 @@ class NotesTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        settingLabel()
     }
 
     func set(object: Notes) {
         self.nameLabel.text = object.name
         self.descriptionLabel.text = object.description
+    }
+    
+    func settingLabel() {
+        nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17.0)
     }
 
 }

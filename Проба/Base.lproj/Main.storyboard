@@ -191,6 +191,7 @@
                                 <connections>
                                     <outlet property="descriptionLabel" destination="whq-1y-Z7o" id="DFo-nw-QPa"/>
                                     <outlet property="nameLabel" destination="ma0-hA-gFF" id="uJO-3g-4zt"/>
+                                    <segue destination="U7g-XA-D4q" kind="show" identifier="edit" id="Bmh-M9-f0r"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -254,17 +255,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="504"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ADG-2w-eMy">
-                                                    <rect key="frame" x="16" y="0.0" width="382" height="504"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wQ0-LP-KPH">
+                                                    <rect key="frame" x="16" y="8" width="382" height="488"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="ADG-2w-eMy" secondAttribute="bottom" id="6mk-2A-UfG"/>
-                                                <constraint firstItem="ADG-2w-eMy" firstAttribute="leading" secondItem="jvP-pU-cAy" secondAttribute="leading" constant="16" id="oDc-b3-Ohm"/>
-                                                <constraint firstAttribute="trailing" secondItem="ADG-2w-eMy" secondAttribute="trailing" constant="16" id="sRb-9G-Q5m"/>
-                                                <constraint firstItem="ADG-2w-eMy" firstAttribute="top" secondItem="jvP-pU-cAy" secondAttribute="top" id="ver-3k-PIW"/>
+                                                <constraint firstItem="wQ0-LP-KPH" firstAttribute="leading" secondItem="jvP-pU-cAy" secondAttribute="leading" constant="16" id="0Df-GP-uAj"/>
+                                                <constraint firstAttribute="bottom" secondItem="wQ0-LP-KPH" secondAttribute="bottom" constant="8" id="O1m-6U-gkK"/>
+                                                <constraint firstItem="wQ0-LP-KPH" firstAttribute="top" secondItem="jvP-pU-cAy" secondAttribute="top" constant="8" id="OpS-5H-Uaf"/>
+                                                <constraint firstAttribute="trailing" secondItem="wQ0-LP-KPH" secondAttribute="trailing" constant="16" id="p58-jz-mem"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -289,8 +292,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="descriptionTextField" destination="ADG-2w-eMy" id="voS-Hi-bSE"/>
                         <outlet property="nameTextField" destination="hNZ-95-ccb" id="ky8-wn-Xwb"/>
+                        <outlet property="textView" destination="wQ0-LP-KPH" id="xgv-yc-oY8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VtA-68-jj2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -336,7 +339,13 @@
             <point key="canvasLocation" x="2671" y="82"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Bmh-M9-f0r"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
