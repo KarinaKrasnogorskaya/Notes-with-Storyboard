@@ -8,6 +8,8 @@
 
 import UIKit
 
+//MARK: - Model OnboardingSlide
+
 struct OnboardingSlide {
     var title: String
     var description: String

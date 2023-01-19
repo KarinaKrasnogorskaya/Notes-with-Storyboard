@@ -7,24 +7,36 @@
 
 import UIKit
 
-class NotesViewController: UITableViewController {
-
-    var objects: [Notes] = []
-    var filtretedObjects = [Notes]()
+//MARK: - NotesViewController
+final class NotesViewController: UITableViewController {
     
-    let searchController = UISearchController(searchResultsController: nil)
-    var searchBarIsEmpty: Bool {
+    //MARK: - Property
+    private var objects = [
+        Notes(name: "Как стать хорошим програмистом?", description: "Нужно много учиться"),
+        Notes(name: "Как попасть на стажировку?", description: "Нужно много практики")
+    ]
+    private var filtretedObjects = [Notes]()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
-    var isFiltering: Bool {
+    private var isFiltering: Bool {
         return searchController.isActive && !searchBarIsEmpty
     }
-
     
-
+    
+    //MARK: - Ovverride Method
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingNavigationBar()
+        
+        
+        
+    }
+    //MARK: - Setting Navigation Bar
+    private func settingNavigationBar() {
         self.title = "Заметки"
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         searchController.searchResultsUpdater = self
@@ -32,11 +44,10 @@ class NotesViewController: UITableViewController {
         searchController.searchBar.placeholder  = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-      
-
-        
     }
     
+    
+    //MARK: - Segue
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         guard segue.identifier == "saveSegue" else { return }
         let sourseVC = segue.source as! NewNotesTableViewController
@@ -50,7 +61,7 @@ class NotesViewController: UITableViewController {
             objects.append(notes)
             tableView.insertRows(at: [newIndexPath], with: .fade)
         }
-      
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -70,11 +81,12 @@ class NotesViewController: UITableViewController {
             newNotesVC.notes = note
             newNotesVC.title = "Edit"
         }
-       
+        
     }
     
+    //MARK: - Ovverride Table Metods
     override func numberOfSections(in tableView: UITableView) -> Int {
-       return 1
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,8 +107,8 @@ class NotesViewController: UITableViewController {
         } else {
             object = objects[indexPath.row]
         }
-          
-            cell.set(object: object)
+        
+        cell.set(object: object)
         return cell
     }
     
@@ -121,16 +133,17 @@ class NotesViewController: UITableViewController {
         tableView.reloadData()
     }
     
-
-
+    
+    
 }
 
+//MARK: - NotesViewController: UISearchResultsUpdating 
 extension NotesViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
-
-    func filterContentForSearchText(_ searchText: String) {
+    
+     func filterContentForSearchText(_ searchText: String) {
         filtretedObjects = objects.filter({ (object: Notes) -> Bool in
             return object.name.lowercased().contains(searchText.lowercased())
         })

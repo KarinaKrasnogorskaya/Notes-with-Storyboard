@@ -7,6 +7,8 @@
 
 import UIKit
 
+//MARK: - ImageHelper
+
 struct ImageHelper {
     static let slideOne = UIImage(named: "slideOne")
     static let slideTwo = UIImage(named: "slideTwo")

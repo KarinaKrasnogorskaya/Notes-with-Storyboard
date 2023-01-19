@@ -7,7 +7,9 @@
 
 import UIKit
 
-class OnboardingCollectionViewCell: UICollectionViewCell {
+//MARK: - OnboardingCollectionViewCell
+
+final class OnboardingCollectionViewCell: UICollectionViewCell {
     @IBOutlet var slideImageView: UIImageView!
     @IBOutlet var slideTitleView: UILabel!
     @IBOutlet var slideDescriptionLabel: UILabel!

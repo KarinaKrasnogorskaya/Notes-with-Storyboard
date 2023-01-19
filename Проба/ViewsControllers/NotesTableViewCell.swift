@@ -7,23 +7,26 @@
 
 import UIKit
 
-class NotesTableViewCell: UITableViewCell {
+//MARK: - NotesTableViewCell
+final class NotesTableViewCell: UITableViewCell {
     
-    
+    //MARK: - Property
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     
+    //MARK: - Ovverride Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         settingLabel()
     }
-
-    func set(object: Notes) {
+    
+//MARK: -  Methods
+     func set(object: Notes) {
         self.nameLabel.text = object.name
         self.descriptionLabel.text = object.description
     }
     
-    func settingLabel() {
+     func settingLabel() {
         nameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 17.0)
     }
 

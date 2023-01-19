@@ -76,11 +76,10 @@
 			children = (
 				9A94408628FAB75600974058 /* Image */,
 				9A94407F28F99A1B00974058 /* Extention  */,
-				9A94407B28F9949000974058 /* Views */,
-				9A94407A28F9947400974058 /* CustomViews */,
+				9A94407C28F994A200974058 /* Onbording */,
+				9A94407B28F9949000974058 /* ViewsControllers */,
 				9A94407928F9945C00974058 /* Models */,
 				9A94406228F9923000974058 /* AppDelegate.swift */,
-				9A4EB302297719E80052FDD5 /* ModelNotes.swift */,
 				9A94406428F9923000974058 /* SceneDelegate.swift */,
 				9A94406828F9923000974058 /* Main.storyboard */,
 				9A94406E28F9923300974058 /* Assets.xcassets */,
@@ -94,27 +93,20 @@
 		9A94407928F9945C00974058 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9A4EB302297719E80052FDD5 /* ModelNotes.swift */,
 				9A94408228F9C17800974058 /* OnboardingSlide.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		9A94407A28F9947400974058 /* CustomViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomViews;
-			sourceTree = "<group>";
-		};
-		9A94407B28F9949000974058 /* Views */ = {
+		9A94407B28F9949000974058 /* ViewsControllers */ = {
 			isa = PBXGroup;
 			children = (
 				9A4EB2FE297702AB0052FDD5 /* NotesViewController.swift */,
 				9A4EB304297724660052FDD5 /* NewNotesTableViewController.swift */,
 				9A4EB300297718BE0052FDD5 /* NotesTableViewCell.swift */,
-				9A94407C28F994A200974058 /* Onbording */,
 			);
-			path = Views;
+			path = ViewsControllers;
 			sourceTree = "<group>";
 		};
 		9A94407C28F994A200974058 /* Onbording */ = {

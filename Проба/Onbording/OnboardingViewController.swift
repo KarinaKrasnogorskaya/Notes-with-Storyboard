@@ -7,8 +7,10 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
-
+//MARK: - OnboardingViewController
+final class OnboardingViewController: UIViewController {
+    
+    //MARK: - Property
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var pageControl: UIPageControl!
@@ -26,32 +28,32 @@ class OnboardingViewController: UIViewController {
         }
     }
     
-    
+    //MARK: - Ovverride Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         getSlides()
         pageControl.numberOfPages = slides.count
         
-
+        
     }
     
-    
+    //MARK: - Method
     func getSlides() {
         slides = [ OnboardingSlide(
             title: "Приложение для заметок",
             description: "Ничего лишнего, все под рукой",
             image: ImageHelper.slideOne!),
                    OnboardingSlide(
-            title: "Удобный функционал",
-            description: "Бесплатно",
-            image: ImageHelper.slideTwo!),
+                    title: "Удобный функционал",
+                    description: "Бесплатно",
+                    image: ImageHelper.slideTwo!),
                    OnboardingSlide(
                     title: "Для ценителей комфорта",
                     description: "Храните все в одном месте",
                     image: ImageHelper.slideThree!)
         ]
     }
-
+    //MARK: - Action
     @IBAction func buttonClick(_ sender: UIButton) {
         
         if currentPage == slides.count - 1 {
@@ -68,6 +70,7 @@ class OnboardingViewController: UIViewController {
     }
 }
 
+//MARK: - Extension OnboardingViewController
 extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,7 +86,7 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x / width)

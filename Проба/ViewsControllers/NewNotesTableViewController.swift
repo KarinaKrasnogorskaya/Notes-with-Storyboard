@@ -7,19 +7,21 @@
 
 import UIKit
 
-class NewNotesTableViewController: UITableViewController {
+//MARK: - NewNotesTableViewController
+final class NewNotesTableViewController: UITableViewController {
     
+    //MARK: - Property
     var notes = Notes(name: "", description: "")
     
     @IBOutlet var nameTextField: UITextField!
-   
+    
     @IBOutlet var textView: UITextView!
     
-    
+    //MARK: - Ovverride Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-       
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,11 +34,12 @@ class NewNotesTableViewController: UITableViewController {
         notes = Notes(name: name, description: description)
     }
     
+    //MARK: - Private Func
     private func updateUI() {
         nameTextField.text = notes.name
         textView.text = notes.description
     }
-
-
-
+    
+    
+    
 }

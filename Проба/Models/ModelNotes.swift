@@ -7,6 +7,7 @@
 
 import Foundation
 
+//MARK: - Model Notes
 
 struct Notes {
     var name: String
